@@ -1,0 +1,19 @@
+name: laravelworkflow
+
+on:
+  push:
+    - main
+  pull_request:
+    - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: python:3.9-slim
+
+  steps:
+    - name: checkout code
+      uses: actions@checkoutv2
+
+    - name: run any script
+      run: echo hello,world
