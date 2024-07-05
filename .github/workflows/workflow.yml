@@ -2,9 +2,9 @@ name: laravelworkflow
 
 on:
   push:
-    - main
+    - master
   pull_request:
-    - main
+    - master
 
 jobs:
   build:
