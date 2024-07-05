@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 version: '3'
 services:
 
@@ -28,3 +29,35 @@ services:
 
 networks:
   my-network:
+=======
+version: '3'
+services:
+
+  web:
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "4000:80"  #host port:container port
+    depends_on:
+      - database
+    networks:
+      - my-network
+
+
+  database:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      #MYSQL_USER: root
+      #MYSQL_PASSWORD: 12345
+      MYSQL_ROOT_PASSWORD: 12345
+      #MYSQL_ALLOW_EMPTY_PASSWORD:
+      MYSQL_DATABASE: fordocker2
+    networks:
+      - my-network
+
+networks:
+  my-network:
+>>>>>>> ea8b744a3957dd501e609cb7aaed1c11d224c5fc
