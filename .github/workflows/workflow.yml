@@ -30,18 +30,18 @@ jobs:
         run: echo Hello, world!
       #install the node version
       - name: Set up Node.js
-          uses: actions/setup-node@v2
-          with:
-            node-version: '14'
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
 
       - name: Install dependencies
-          run: npm install
+        run: npm install
 
       - name: Build project
-          run: npm run build
+        run: npm run build
 
       - name: Run tests
-          run: npm test
+        run: npm test
 
       - name: finalwords
-          run: echo everything is done
+        run: echo everything is done
