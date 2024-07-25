@@ -1,4 +1,4 @@
-gitgit # Use an official PHP image as the base image
+# Use an official PHP image as the base image
 FROM php:8.2-apache
 
 # Set the working directory to /var/www/html
