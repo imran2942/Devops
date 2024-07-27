@@ -8,6 +8,9 @@ pipeline {
         dockerImage = ''
     }
     agent any
+    triggers {
+        githubPush()
+        }
     stages {
 
         stage('checkout') {
