@@ -17,7 +17,7 @@ pipeline {
                 steps {
                 git branch: 'master',
                 credentialsId: githubCredential,
-                url: 'https://github.com/imran2942/Devops/Jenkinsfile'
+                url: 'https://github.com/imran2942/Devops'
                 }
         }
 
