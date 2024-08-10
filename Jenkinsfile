@@ -24,23 +24,24 @@ pipeline {
             }
         }
 
-//        stage('SonarQube Analysis') {
-//            steps {
-//                withSonarQubeEnv('Sonar1') {
-//                    sh 'sonar-scanner \
-//                        -Dsonar.projectKey=devops-sonar \
-//                        -Dsonar.sources=. \
-//                        -Dsonar.host.url=$SONARQUBE_URL \
-//                        -Dsonar.login=$SONARQUBE_AUTH_TOKEN'
-//                }
-//            }
-//        }
         stage('SonarQube Analysis') {
+            steps {
             def scannerHome = tool 'SonarScanner';
-            withSonarQubeEnv() {
-              sh "${scannerHome}/bin/sonar-scanner"
+                withSonarQubeEnv() {
+                    sh '${scannerHome}/bin/sonar-scanner \
+                        -Dsonar.projectKey=devops-sonar \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=$SONARQUBE_URL \
+                        -Dsonar.login=$SONARQUBE_AUTH_TOKEN'
+                }
             }
-          }
+        }
+//        stage('SonarQube Analysis') {
+//            def scannerHome = tool 'SonarScanner';
+//            withSonarQubeEnv() {
+//              sh "${scannerHome}/bin/sonar-scanner"
+//            }
+//          }
 
         stage('Quality Gate') {
             steps {
