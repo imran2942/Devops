@@ -23,19 +23,21 @@ pipeline {
                     url: 'https://github.com/imran2942/Devops'
             }
         }
-
         stage('SonarQube Analysis') {
             steps {
-            def scannerHome = tool 'SonarScanner';
-                withSonarQubeEnv() {
-                    sh '${scannerHome}/bin/sonar-scanner \
-                        -Dsonar.projectKey=devops-sonar \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=$SONARQUBE_URL \
-                        -Dsonar.login=$SONARQUBE_AUTH_TOKEN'
+                script {
+                    def scannerHome = tool name: 'SonarQube Scanner' // Adjust 'SonarScanner' to match your tool installation name in Jenkins
+                    withSonarQubeEnv('Sonar1') { // Replace 'SonarQube' with your SonarQube installation name
+                        sh "${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.projectKey=devops-sonar \
+                            -Dsonar.sources=. \
+                            -Dsonar.host.url=$SONARQUBE_URL \
+                            -Dsonar.login=$SONARQUBE_AUTH_TOKEN"
+                    }
                 }
             }
         }
+
 //        stage('SonarQube Analysis') {
 //            def scannerHome = tool 'SonarScanner';
 //            withSonarQubeEnv() {
