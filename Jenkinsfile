@@ -26,8 +26,8 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    def scannerHome = tool name: 'SonarQube Scanner' // Adjust 'SonarScanner' to match your tool installation name in Jenkins
-                    withSonarQubeEnv('Sonar1') { // Replace 'SonarQube' with your SonarQube installation name
+                    def scannerHome = tool name: 'Sonar1' // Adjust 'SonarScanner' to match your tool installation name in Jenkins
+                    withSonarQubeEnv('Sonar2') { // Replace 'SonarQube' with your SonarQube installation name
                         sh "${scannerHome}/bin/sonar-scanner \
                             -Dsonar.projectKey=devops-sonar \
                             -Dsonar.sources=. \
