@@ -23,53 +23,42 @@ pipeline {
                     url: 'https://github.com/imran2942/Devops'
             }
         }
-        stage('Code Analysis') {
-                    environment {
-                        scannerHome = tool 'Sonar'
-                    }
+        stage('SonarQube Code Analysis') {
                     steps {
+                        dir("${WORKSPACE}"){
+                        // Run SonarQube analysis for Python
                         script {
-                            withSonarQubeEnv('Sonar') {
+                            def scannerHome = tool name: 'Sonar-tool', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                            withSonarQubeEnv('Sonar-system') {
                                 sh "${scannerHome}/bin/sonar-scanner \
-                                    -Dsonar.projectKey=sonar-project \
-                                    -Dsonar.projectName=sonar-project \
-                                    -Dsonar.projectVersion=1.0 \
-                                    -Dsonar.sources=."
+                                    -D sonar.projectVersion=1.0-SNAPSHOT \
+                                    -D sonar.projectKey=sonar-project \
+                                    -D sonar.sourceEncoding=UTF-8 \
+                                    -D sonar.language=php \
+                                    -D sonar.host.url=http://localhost:9000"
+                                }
                             }
                         }
                     }
         }
 
-//        stage('SonarQube Analysis') {
-//            steps {
-//               withSonarQubeEnv('Sonarsystem') {
-//                      sh 'sonar-scanner'
-//                     }
-//                }
-//            }
-//        }
-//                stage('SonarQube Analysis') {
+//        stage('Code Analysis') {
+//                    environment {
+//                        scannerHome = tool 'Sonar'
+//                    }
 //                    steps {
-                        // Use the SonarQube environment defined in Jenkins
-//                        withSonarQubeEnv(SONARQUBE_ENV) {
-                            // Run the sonar-scanner inside the Docker container
-//                            bat '''
-//                            docker exec <container_name> sonar-scanner.bat \
-//                            -Dsonar.projectKey=your_project_key \
-//                            -Dsonar.sources=src \
-//                            -Dsonar.host.url=http://localhost:9000 \
-//                            -Dsonar.login=$SONARQUBE_AUTH_TOKEN
-//                            '''
+//                        script {
+//                            withSonarQubeEnv('Sonar') {
+//                                sh "${scannerHome}/bin/sonar-scanner \
+//                                    -Dsonar.projectKey=sonar-project \
+//                                    -Dsonar.projectName=sonar-project \
+//                                    -Dsonar.projectVersion=1.0 \
+//                                    -Dsonar.sources=."
+//                            }
 //                        }
 //                    }
-//                }
+//        }
 
-//        stage('SonarQube Analysis') {
-//            def scannerHome = tool 'SonarScanner';
-//            withSonarQubeEnv() {
-//              sh "${scannerHome}/bin/sonar-scanner"
-//            }
-//          }
 
         stage('Quality Gate') {
             steps {
